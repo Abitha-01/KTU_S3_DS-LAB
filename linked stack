@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<stdlib.h>
+void display();
+void push();
+void pop();
+struct node
+{
+	int data;
+	struct node *link;
+};
+int main()
+{
+	struct node *topptr = NULL;
+	int choice,data;
+	while(1)
+	{
+		printf("\n ENTER YOUR CHOICE: \n1.PUSH \n2.DISPLAY \n.3.POP \n.4.EXIT");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: 	printf("ENTER DATA:");
+						scanf("%d",&data);
+						push(&topptr,data);
+						break;
+			case 2:  display(&topptr);
+						break;
+			case 3:  pop(&topptr);
+						break;
+						
+			case 4:  exit(0);
+			
+			default: printf("INVALID CHOICE");
+						break;
+		}
+	}
+}
+
+void push(struct node **t, int data)
+{
+	struct node *newnode;
+	newnode=(struct node *)malloc(sizeof(struct node));
+	newnode-> data =data;
+	newnode->link= *t;
+	*t = newnode;
+}
+
+void display( struct node **t)
+{
+	struct node *temp;
+	if(*t == NULL)
+	{
+		printf("empty");
+	}
+	else
+	{
+		temp= *t;
+		while(temp ->link != NULL)
+		{
+			printf("%d", temp->data);
+			temp = temp->data;
+		}
+	}
+}
+
+void pop(struct node **t)
+{
+	struct node *temp;
+	if(*t=NULL)
+	{
+		printf("empty");
+	}
+	else
+	{
+		temp= *t;
+		free(temp);
+		*t = *t->link;
+	}
+}
+	
