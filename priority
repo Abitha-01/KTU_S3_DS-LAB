@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+struct node
+{
+	int priority;
+	int info;
+	struct node*link;
+};
+struct node*front=NULL;
+void insert();
+void delete();
+void display();
+int main()
+{
+	int choice;
+	while(1)
+	{
+		printf("\nENTER YOUR CHOICE: \n1.INSERT \n2.DISPLAY \n3.DELETE \n4.EXIT\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: insert();
+						break;
+			case 2: display();
+						break;
+			case 3: delete();
+						break;
+			case 4: exit(0);
+			default: printf("INVALID CHOICE!!!!");
+		}
+	}
+	return(0);
+}
+
+void insert()
+{
+	struct node*tmp;
+	struct node*q;
+	int added_item, item_priority;
+	tmp=(struct node*)malloc(sizeof(struct node));
+	printf("ENTER THE ITEM VALUE TO BE ADDED:");
+	scanf("%d",&added_item);
+	printf("ENTER ITS PRIORITY?:");
+	scanf("%d",&item_priority);
+	tmp->info=added_item;
+	tmp->priority=item_priority;
+	if(front==NULL || item_priority < front->priority)
+	{
+		tmp->link=front;
+		front=tmp;
+	}
+	else
+	{
+		q=front;
+		while(q->link!=NULL && q->link->priority <= item_priority)
+		{
+			q=q->link;
+			tmp->link=q->link;
+			q->link=tmp;
+		}
+	}
+}
+
+void delete()
+{
+	struct node*tmp;
+	if(front==NULL)
+	{
+		printf("!!!QUEUE UNDERFLOW!!!\n");
+	}
+	else
+	{
+		tmp=front;
+		printf("Deleted item is %d \n",tmp->info);
+		front=front->link;
+		free(tmp);
+	}
+}
+
+void display()
+{
+	struct node*ptr;
+	ptr=front;
+	if(front==NULL)
+	{
+		printf("!!!QUEUE IS EMPLY!!!");
+	}
+	else
+	{
+		printf("QUEUE IS:\n ");
+		printf("PRIORITY ITEM");
+		while(ptr!=NULL)
+		{
+			printf("%5d %5d \n",ptr->priority,ptr->info);
+			ptr=ptr->link;
+		}
+	}
+}
