@@ -56,9 +56,9 @@ void insert()
 		while(q->link!=NULL && q->link->priority <= item_priority)
 		{
 			q=q->link;
+		}
 			tmp->link=q->link;
 			q->link=tmp;
-		}
 	}
 }
 
@@ -88,8 +88,7 @@ void display()
 	}
 	else
 	{
-		printf("QUEUE IS:\n ");
-		printf("PRIORITY ITEM");
+		printf(" ITEM WITH ITS PRIORITY IS :\n");
 		while(ptr!=NULL)
 		{
 			printf("%5d %5d \n",ptr->priority,ptr->info);
