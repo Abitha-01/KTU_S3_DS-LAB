@@ -1,0 +1,161 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node*prev;
+	int info;
+	struct node*next;
+};
+struct node*start=NULL;
+struct node*tail=NULL;
+void createlist(int);
+void insertatbeg(int);
+void insertatlast(int);
+void delete();
+void display();
+int main()
+{
+	int choice,n,m,i;
+	while(1)
+	{
+		printf("\nENTER YOUR CHOICE: \n1.CREATE LIST \n2.INSERT AT BEGINNING  \n3.INSERT AT LAST \n4.DISPLAY QUEUE \n5.DELETE QUEUE \n6.EXIT\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: printf("How many nodes you want?\n");
+						scanf("%d",&n);
+						for(i=1;i<=n;i++)
+						{
+							printf("Enter the element:\n");
+							scanf("%d",&m);
+							createlist(m);
+						}
+						break;
+			case 2: printf("Enter the element:\n");
+						scanf("%d",&m);
+						insertatbeg(m);
+						break;
+			case 3: printf("Enter the element:\n");
+							scanf("%d",&m);
+							insertatlast(m);
+							break;
+			case 4: display();
+						break;
+		   case 5: delete();
+		   			break;
+		   case 6: exit(0);
+		   default: printf("!!INVALID CHOICE!!");
+		   				break;
+		   }
+		  }
+		 return(0);
+}
+
+void createlist ( int  num)
+{
+	struct node*q;
+	struct node*tmp;
+	tmp=(struct node*)malloc(sizeof(struct node));
+	tmp->info=num;
+	tmp->next=NULL;
+	if(start==NULL)
+	{
+		start=tail=tmp;
+		start->prev=NULL;
+	}
+	else
+	{
+		q=start;
+		while(q->next !=NULL)
+		{
+			q=q->next;
+		}
+		q->next=tmp;
+		tmp->prev=q;
+		tail=tmp;
+		tail->next=NULL;
+	}
+}
+
+void insertatbeg(int num)
+{
+	struct node*tmp;
+	tmp=(struct node*)malloc(sizeof(struct node));
+	tmp->prev=NULL;
+	tmp->info=num;
+	tmp->next=start;
+	start->prev=tmp;
+	start=tmp;
+}
+
+void insertatlast(int num)
+{
+	struct node*tmp;
+	tmp=(struct node*)malloc(sizeof(struct node));
+	tmp->info=num;
+	tmp->next=NULL;
+	tmp->prev=tail;
+	if(start==NULL)
+	{
+		start=tail=tmp;
+   }
+  else
+  {
+  	tail->next=tmp;
+  	tail=tmp;
+  	tail->next=NULL;
+  }
+}
+
+void delete()
+{
+	int choice, pos;
+	if(start==NULL)
+	{
+		printf("QUEUE IS EMPTY!!");
+	}
+	else
+	{
+	struct node*tmp;
+	struct node*q;
+	tmp=(struct node*)malloc(sizeof(struct node));
+	printf("\nEnter from which position you want to delete: \n1.DELETE FROM BEGINNING \n2.DELETE FROM LAST\n");
+	scanf("%d",&choice);
+	switch(choice)
+	{
+		case 1: tmp=start;
+					start=start->next;
+					start->prev=NULL;
+					printf("Deleted element is: %d\n",tmp->info);
+					free(tmp);
+					break;
+		case 2: tmp=tail;
+					tail=tail->prev;
+					tail->next=NULL;
+					printf("Deleted element is: %d\n",tmp->info);
+					free(tmp);
+					break;
+	}
+ }
+}
+
+void display()
+{
+	struct node*q;
+	if(start==NULL)
+	{
+		printf("LIST IS EMPTY!!!\n");
+	}
+	else
+	{
+		q=start;
+		printf("THE QUEUE IS: \n");
+		while(q!=NULL)
+		{
+			printf("%3d",q->info);
+			q=q->next;
+		}
+		printf("\n");
+	}
+}	   
+		   
