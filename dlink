@@ -124,17 +124,23 @@ void delete()
 	switch(choice)
 	{
 		case 1: tmp=start;
-					start=start->next;
-					start->prev=NULL;
-					printf("Deleted element is: %d\n",tmp->info);
-					free(tmp);
-					break;
+			start=start->next;
+			if(start!=NULL)
+			{
+				start->prev=NULL;
+			}
+			printf("Deleted element is: %d\n",tmp->info);
+			free(tmp);
+			break;
 		case 2: tmp=tail;
-					tail=tail->prev;
-					tail->next=NULL;
-					printf("Deleted element is: %d\n",tmp->info);
-					free(tmp);
-					break;
+			tail=tail->prev;
+			if(tail!=NULL)
+			{
+				tail->next=NULL;
+			}
+			printf("Deleted element is: %d\n",tmp->info);
+			free(tmp);
+			break;
 	}
  }
 }
