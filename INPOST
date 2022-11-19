@@ -1,0 +1,77 @@
+#include<stdlib.h>
+#include<stdio.h>
+#define MAX 100
+int isOperator(char);
+int Prior(char);
+void push(char);
+int pop();
+int i,j,top=-1;
+char infix[MAX],postfix[MAX],stack[MAX],temp; 
+int main(){
+	printf("\nEnter an expression...\n");scanf("%s",infix);
+	for(i=0,j=0 ;infix[i]!='\0'; i++){
+	
+	if(!isOperator(infix[i]))
+	{
+		postfix[j++]=infix[i];
+	
+	}
+	else if(infix[i]=='(')
+	{
+		push(infix[i]);	
+	}
+	else if(infix[i]==')')
+	{
+		while(stack[top]!='('){
+			postfix[j++]=pop();						
+			}
+		pop();										
+		}
+	else{
+		if(stack[top]=='(' || top==-1)
+		 	{
+				push(infix[i]);						
+			}	
+		 else{
+		 	if(infix[i]=='^' && stack[top]=='^')
+				push(infix[i]);
+			else if(Prior(infix[i])<=Prior(stack[top])){
+				postfix[j++]=pop();					
+				push(infix[i]);
+				}
+			
+			else push(infix[i]);					
+			}
+			}
+	}
+	while(top!=-1){
+		postfix[j++]=pop();												
+		}
+	printf("\nPOSTFIX EXPRESSION : %s",postfix);	
+	return(0);
+}
+int isOperator(char a){
+	switch(a){
+	case '+':
+	case '-':
+	case '*':
+	case '/':
+	case '^':
+	case '(':
+	case ')':
+	return(1);
+	default :return(0);
+		}
+	}
+int Prior(char x){
+	if(x=='^')return(3);
+	if(x=='*'||x=='/')return(2);
+	if(x=='+'||x=='-')return(1);
+	return(0);
+}
+void push(char item){
+	stack[++top]=item;
+	}	
+int pop(){
+	return(stack[top--]);
+	}	
