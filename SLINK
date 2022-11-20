@@ -63,7 +63,7 @@ void insertfront(int data)
 {
     struct node* newnode;
     newnode=(struct node*)malloc(sizeof(struct node));
-    newnode->link=NULL;
+    newnode->link=head;
     newnode->data=data;
     head=newnode;
 }
@@ -107,7 +107,7 @@ void delet()
 	else
 	{	
 		printf("\n1.delete from front \n2.delete from position \n3.delete fom last\n");
-		printf("enter the option: ");
+		printf("Enter the option: ");
 		scanf("%d",&option);
 		switch(option)
 		{
@@ -138,17 +138,25 @@ void deleteposition()
     struct node*ptr=head;
     printf("enter position: ");
     scanf("%d",&n);
-    for(i=1;i<=n-2;i++)
+    for(i=1;i<n-2;i++)
     {
         temp=temp->link;
     }
-    for(i=1;i<=n-1;i++)
+	if(temp->link==NULL)
+	{
+		printf("list less than the position");
+		return;
+	}
+	else{
+		
+    for(i=1;i<n-1;i++)
     {
         ptr=ptr->link;
     }
     temp->link=ptr->link;
     printf("deleted number is %d",ptr->data);
 	free(ptr);
+	}
 }
 
 void deletelast()
