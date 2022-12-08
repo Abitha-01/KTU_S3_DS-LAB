@@ -1,0 +1,63 @@
+#include<stdio.h>
+#define MAX 10
+struct sparse
+{
+	int row,col,val;
+};
+struct sparse A[MAX];
+int B[MAX][MAX];
+void print(struct sparse[]);
+int main()
+{
+	int i;
+	int m,n;
+	printf("ENTER THE NO OF ROWS AND COLUMNS OF MATRIX: \n");
+	scanf("%d %d",&m,&n);
+	printf("ENTER THE MATRIX ELEMENTS\n");
+	for(int i=0;i<m;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			scanf("%d",&B[i][j]);
+			if(B[i][j]!=0)
+				(A[0].val)++;
+		}
+	}
+	printf("THE MATRIX :\n");
+	for(int i=0;i<m;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			printf("%d",B[i][j]);
+		}
+		printf("\n");
+	}
+	A[0].row=m;
+	A[0].col=n;
+	int k=1;
+	for(int i=0;i<m;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(B[i][j]!=0)
+			{
+				A[k].row=i;
+				A[k].col=j;
+				A[k].val=B[i][j];
+				k++;
+			}
+		}
+	}
+	printf("\n THE SPARSE MATRIX IS :\n");
+	print(A);
+	return(0);
+}
+void print(struct sparse A[])
+{
+	printf("\n row   column   elements \n");
+	for(int i=0;i<=A[0].val;i++)
+	{
+		printf("%d   %d   %d ",A[i].row,A[i].col,A[i].val);
+		printf("\n");
+	}
+}
