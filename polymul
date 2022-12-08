@@ -1,0 +1,52 @@
+#include<stdio.h>
+struct poly
+{
+	int coef;
+	int exp;
+};
+struct poly A[10],B[10],C[10];
+void polymul();
+int d1,d2;
+int main()
+{
+	int i;
+	printf("Enter highest degree of polynomial 1 :\n");
+	scanf("%d",&d1);
+	printf("Enter the coefficients for A:\n");
+	for(i=0;i<=d1;i++)
+	{
+		printf("coeff of x^ %d: \n",i);
+		scanf("%d",&A[i].coef);
+		A[i].exp=i;
+	}
+	printf("Enter highest degree of polynomial 2 :\n");
+	scanf("%d",&d2);
+	printf("Enter the coefficients for B:\n");
+	for(i=0;i<=d2;i++)
+	{
+		printf("coeff of x^ %d: \n",i);
+		scanf("%d",&B[i].coef);
+		B[i].exp=i;
+	}
+	polymul();
+	return(0);
+}
+void polymul()
+{
+	int i=0,j,k;
+	for(j=0;j<=d1;j++)
+	{
+		for(k=0;k<=d2;k++)
+		{
+			C[i].coef=A[j].coef * B[k].coef;
+			C[i].exp=j+k;
+			i++;
+		}
+	}
+	printf("THE PRODUCT IS : ");
+	for(j=i-1;j>=0;j--)
+	{
+		printf("%dx^[%d]  ", C[j].coef,C[j].exp);
+	}
+	printf("\n");
+}
