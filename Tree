@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *lchild;
+    struct node *rchild;
+};
+struct node *newn(int data)
+{
+    struct node *newnode;
+    newnode =(struct node*)malloc(sizeof(struct node));
+
+    newnode->data=data;
+    newnode->lchild=NULL;
+    newnode->rchild=NULL;
+    return newnode;
+}
+
+struct node *insert(struct node *root, int data)
+{
+     if(root == NULL)
+         return newn(data);
+
+     if(root->data<data)
+         root->rchild = insert(root->rchild,data);
+
+     if(root->data>data)
+         root->lchild = insert(root->lchild,data);
+
+     return root;
+}
+
+void inorder(struct node *root)
+{
+    if(root == NULL)
+        return;
+    inorder(root->lchild);
+    printf("%d ",root->data);
+    inorder(root->rchild);
+}
+
+void preorder(struct node *root)
+{
+    if(root == NULL)
+        return;
+    printf("%d ",root->data);
+    inorder(root->lchild);
+    inorder(root->rchild);
+}
+
+void postorder(struct node *root)
+{
+    if(root == NULL)
+        return;
+    inorder(root->lchild);
+    inorder(root->rchild);
+    printf("%d ",root->data);
+}
+
+int main()
+{
+   struct node *root = NULL;
+    int data;
+    while(1)
+        {
+            printf("\n1.insert\n2.inorder traversal\n3.preorder traversal\n4.postorder\n5.exit\n");
+            printf("enter option: ");
+            int choice;
+            scanf("%d",&choice);
+            switch (choice)
+            {
+            case 1 :
+                printf("\nEnter the value to be inserted\n");
+                scanf("%d",&data);
+                root = insert(root,data);
+                break;
+            case 2 :
+                printf("\nInorder Traversal of the Binary Tree:\n");
+                inorder(root);
+                break;
+            case 3 :
+                printf("\nPreorder Traversal of the Binary Tree:\n");
+                preorder(root);
+                break;
+            case 4 :
+                printf("\nPostorder Traversal of the Binary Tree:\n");
+                postorder(root);
+                break;
+            case 5 :
+                exit(0);
+            default :
+                printf("invalid option\n");
+                break;
+            }
+        }
+   return 0;
+}
