@@ -1,0 +1,114 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 10
+int array[SIZE];
+void insert(int);
+void delete(int);
+void search(int);
+void set();
+
+int main()
+{
+    int choice,n,data;
+    set();
+    while(1){
+
+    printf("\n1.insert \n2.delete\n3.search\n4.exit\n enter your choice:");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1 :
+        printf("enter number: ");
+        scanf("%d",&data);
+        insert(data);
+        break;
+
+    case 2:
+        printf("enter number: ");
+        scanf("%d",&data);
+        delete(data);
+        break;
+
+    case 3 :
+         printf("enter number: ");
+        scanf("%d",&data);
+        search(data);
+        break;
+   case 4:exit(0);
+    }
+    }
+    return(0);
+}
+void insert(int data){
+	int key=data%SIZE;
+	if(array[key]==-1)
+	{	array[key]=data;	}
+	else{
+		int temp=(key+1)%SIZE;
+		while(temp!=key)
+		{
+			if(array[temp]==-1)
+				{array[temp]=data;
+					break;}
+			temp=(temp+1)%SIZE;
+			
+		}
+		if(temp==key)
+		{
+			printf("overflow\n");
+		}
+	}
+	
+
+}
+void search(int data){
+	int key=data%SIZE;
+	if(array[key]==data)
+	{	printf("element found at %d",key);	}
+	else{
+		int temp=(key+1)%SIZE;
+		while(temp!=key)
+		{
+			if(array[temp]==data)
+				{	printf("element found at %d",temp);
+					break;}
+			temp=(temp+1)%SIZE;
+			
+		}
+		if(temp==key)
+		{
+			printf("element not found\n");
+		}
+	}
+	
+
+}
+void delete(int data)
+{
+int key=data%SIZE;
+	if(array[key]==data)
+	{	array[key]=-1;	}
+	else{
+		int temp=(key+1)%SIZE;
+		while(temp!=key)
+		{
+			if(array[temp]==data)
+				{	array[temp]=-1;
+					break;}
+			temp=(temp+1)%SIZE;
+			
+		}
+		if(temp==key)
+		{
+			printf("element not found\n");
+		}
+	}
+	
+}
+void set()
+{
+	for(int i=0;i<SIZE;i++)
+	{
+		array[i]=-1;
+	}
+}
